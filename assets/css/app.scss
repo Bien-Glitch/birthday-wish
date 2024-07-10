@@ -5,6 +5,28 @@
 	bottom: 0;
 }
 
+@keyframes balls {
+	from {
+		top: 100%;
+		transform: translateY(0);
+	}
+	to {
+		top: 0;
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes ballMain {
+	from {
+		top: 100%;
+		transform: translateY(0);
+	}
+	to {
+		top: 0;
+		// transform: translateY(-100%);
+	}
+}
+
 @keyframes bounce {
 	from,
 	70% {
@@ -51,9 +73,58 @@
 body {
 	margin: 0;
 	width: 100%;
+
+	.ball-bg {
+		padding-left: 0.2rem;
+		padding-right: 0.2rem;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+
+		img {
+			width: 80px;
+			top: 100%;
+			opacity: 0.2;
+			position: fixed;
+		}
+
+		.ball-1 {
+			animation: balls 5s ease-in infinite;
+		}
+
+		.ball-2 {
+			left: 50%;
+			transform: translateX(-50%);
+			animation: balls 5s ease-in 6s infinite;
+		}
+
+		.ball-3 {
+			right: 50%;
+			transform: translateX(50%);
+			animation: balls 5s ease-in 9s infinite;
+		}
+
+		.ball-4 {
+			right: 0;
+			animation: balls 5s ease-in 3s infinite;
+		}
+
+		.happy-birthday {
+			top: 0;
+			left: 50%;
+			width: 100px;
+			opacity: 0.8;
+			transform: translate(-50%, 0);
+			animation: ballMain 5s ease-in-out 10s;
+		}
+	}
 }
 
 #lock-screen {
+	z-index: 10;
 	position: fixed;
 	@include extendedPosition();
 	animation: float 5s ease-in-out infinite;
@@ -63,7 +134,7 @@ body {
 		&::before {
 			content: "";
 			transition: all 1s;
-			position: absolute;
+			position: fixed;
 			@include extendedPosition();
 			animation: fadein 3s ease-in-out;
 			background: url("../img/birthday.svg") fixed no-repeat center;
@@ -90,6 +161,26 @@ body {
 			margin: auto;
 			display: inline-block;
 			animation: bounce 3s ease-in-out 3s infinite;
+		}
+	}
+}
+
+.fluid-wrapper {
+	z-index: 2;
+	position: relative;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+
+	.row {
+		display: flex;
+		flex-direction: column;
+
+		@media (min-width: 992px) {
+			flex-direction: row;
+
+			.col {
+				width: 50%;
+			}
 		}
 	}
 }
