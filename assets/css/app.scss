@@ -1,0 +1,95 @@
+@mixin extendedPosition {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+@keyframes bounce {
+	from,
+	70% {
+		transform: translateY(-100%);
+	}
+	10%,
+	60% {
+		transform: translateY(-50%);
+	}
+	70%,
+	30% {
+		transform: translateY(-90%);
+	}
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translateY(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+		transform: translateY(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+		transform: translateY(0px);
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+}
+
+#lock-screen {
+	position: fixed;
+	@include extendedPosition();
+	animation: float 5s ease-in-out infinite;
+	background: linear-gradient(90deg, rgb(7, 90, 39), rgb(95, 74, 211));
+
+	&.show-bg {
+		&::before {
+			content: "";
+			transition: all 1s;
+			position: absolute;
+			@include extendedPosition();
+			animation: fadein 3s ease-in-out;
+			background: url("../img/birthday.svg") fixed no-repeat center;
+		}
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		color: white;
+
+		small {
+			margin-left: auto;
+			margin-right: auto;
+			padding-bottom: 0.3rem;
+			transform: translateY(-100%);
+		}
+
+		i {
+			margin: auto;
+			display: inline-block;
+			animation: bounce 3s ease-in-out 3s infinite;
+		}
+	}
+}

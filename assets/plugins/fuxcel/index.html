@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuxcel Plugin Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background: #444;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            background: #f4f4f4;
+            width: 250px;
+            padding: 1rem;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            display: block;
+            color: #333;
+            padding: 0.5rem 0;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background: #ddd;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 1rem;
+            flex: 1;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            display: block;
+            padding: .5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fuxcel Plugin Documentation</h1>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <a href="#introduction">Introduction</a>
+            <a href="#installation">Installation</a>
+            <a href="#usage">Usage</a>
+            <a href="#api">API Reference</a>
+            <a href="#animations">Animations</a>
+            <a href="#faq">FAQ</a>
+        </aside>
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Fuxcel is a versatile JavaScript plugin designed to facilitate a range of UI interactions and animations. It provides easy-to-use methods for animating elements, handling events, and managing DOM elements.</p>
+            </section>
+            <section id="installation">
+                <h2>Installation</h2>
+                <p>To include Fuxcel in your project, you can either download the <code>fuxcel.js</code> file and include it in your HTML file:</p>
+                <code>
+                    &lt;script src="path/to/fuxcel.js"&gt;&lt;/script&gt;
+                </code>
+                <p>Or you can install it via a package manager if available (not specified in the provided file).</p>
+            </section>
+            <section id="usage">
+                <h2>Usage</h2>
+                <p>To use Fuxcel, you need to create a new instance of the Fuxcel object by selecting the elements you want to manipulate:</p>
+                <code>
+                    const fx = new Fuxcel('.my-element');
+                </code>
+            </section>
+            <section id="api">
+                <h2>API Reference</h2>
+                <h3>fx(selector, context)</h3>
+                <p>Creates a new Fuxcel object with the selected element.</p>
+                <pre><code>const fx = (selector, context = null) => new Fuxcel(selector, context);</code></pre>
+
+                <h3>isBool(value)</h3>
+                <p>Checks if the given value is of type boolean.</p>
+                <pre><code>const isBool = (value) => {
+    return typeof value === 'boolean';
+};</code></pre>
+
+                <h3>isDefined(value)</h3>
+                <p>Checks if the given value is defined (not null &amp;&amp; not undefined &amp;&amp; not an empty string).</p>
+                <pre><code>const isDefined = (value) => {
+    return value !== undefined && value !== null && value !== '';
+};</code></pre>
+
+                <h3>isFunction(value)</h3>
+                <p>Checks if the given value is of type function.</p>
+                <pre><code>const isFunction = (value) => {
+    return typeof value === 'function';
+};</code></pre>
+
+                <h3>isObject(value)</h3>
+                <p>Checks if the given value is of type object.</p>
+                <pre><code>const isObject = (value) => {
+    return typeof value === 'object';
+};</code></pre>
+
+                <h3>isString(value)</h3>
+                <p>Checks if the given value is of type string.</p>
+                <pre><code>const isString = (value) => {
+    return typeof value === 'string' && true;
+};</code></pre>
+
+                <h3>parseBool(value)</h3>
+                <p>Parse the given value and get its boolean value.</p>
+                <pre><code>const parseBool = (value) => {
+    switch (isString(value) ? value.toString().toLowerCase() : value) {
+        case true:
+        case 'true':
+        case 1:
+        case '1':
+        case 'on':
+        case 'yes':
+            return true;
+        default:
+            return false;
+    }
+};</code></pre>
+                
+                <!-- Additional Functions from fuxcel.js -->
+                <h3>constructor(selector, context)</h3>
+                <p>Initializes the Fuxcel object with the given selector and optional context.</p>
+                <pre><code>class Fuxcel {
+    constructor(selector, context = document) {
+        this.elements = Array.isArray(selector)
+            ? selector
+            : Array.from(
+                  typeof selector === 'string'
+                      ? (context || document).querySelectorAll(selector)
+                      : [selector]
+              );
+    }
+}
+</code></pre>
+
+                <h3>each(callback)</h3>
+                <p>Iterates over each selected element and applies the callback function.</p>
+                <pre><code>each(callback) {
+    this.elements.forEach(callback);
+    return this;
+}</code></pre>
+
+                <h3>on(event, callback)</h3>
+                <p>Attaches an event listener to each selected element.</p>
+                <pre><code>on(event, callback) {
+    return this.each((el) => el.addEventListener(event, callback, false));
+}</code></pre>
+
+                <h3>addClass(className)</h3>
+                <p>Adds the specified class to each selected element.</p>
+                <pre><code>addClass(className) {
+    return this.each((el) => el.classList.add(className));
+}</code></pre>
+
+                <h3>removeClass(className)</h3>
+                <p>Removes the specified class from each selected element.</p>
+                <pre><code>removeClass(className) {
+    return this.each((el) => el.classList.remove(className));
+}</code></pre>
+
+                <h3>toggleClass(className)</h3>
+                <p>Toggles the specified class on each selected element.</p>
+                <pre><code>toggleClass(className) {
+    return this.each((el) => el.classList.toggle(className));
+}</code></pre>
+
+                <h3>css(property, value)</h3>
+                <p>Sets the CSS property to the specified value for each selected element.</p>
+                <pre><code>css(property, value) {
+    return this.each((el) => (el.style[property] = value));
+}</code></pre>
+
+                <h3>fadein(duration)</h3>
+                <p>Fades in the selected element(s) over the specified duration.</p>
+                <pre><code>fadein(duration) {
+    return this.each((el) => {
+        el.style.opacity = 0;
+        el.style.display = '';
+        const last = +new Date();
+        const tick = () => {
+            el.style.opacity = +el.style.opacity + (new Date() - last) / duration;
+            if (+el.style.opacity < 1) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            }
+        };
+        tick();
+    });
+}</code></pre>
+
+                <h3>fadeout(duration)</h3>
+                <p>Fades out the selected element(s) over the specified duration.</p>
+                <pre><code>fadeout(duration) {
+    return this.each((el) => {
+        el.style.opacity = 1;
+        const last = +new Date();
+        const tick = () => {
+            el.style.opacity = +el.style.opacity - (new Date() - last) / duration;
+            if (+el.style.opacity > 0) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            } else {
+                el.style.display = 'none';
+            }
+        };
+        tick();
+    });
+}</code></pre>
+                
+                <!-- Additional animation functions can be added similarly -->
+            </section>
+            <section id="animations">
+                <h2>Animations</h2>
+                <p>Fuxcel provides a variety of built-in animations:</p>
+                <h3>fadeIn</h3>
+                <p>Fades in the selected element.</p>
+                <pre><code>fx('.my-element').fadein(300);</code></pre>
+
+                <h3>fadeOut</h3>
+                <p>Fades out the selected element.</p>
+                <pre><code>fx('.my-element').fadeout(300);</code></pre>
+
+                <h3>slideInDown</h3>
+                <p>Slides the element in from the top.</p>
+                <pre><code>fx('.my-element').slideindown(300);</code></pre>
+
+                <h3>slideOutDown</h3>
+                <p>Slides the element out to the bottom.</p>
+                <pre><code>fx('.my-element').slideoutdown(300);</code></pre>
+
+                <!-- Add more animation documentation as needed -->
+            </section>
+            <section id="faq">
+                <h2>FAQ</h2>
+                <h3>How do I select multiple elements?</h3>
+                <p>You can select multiple elements by using a common class or selector:</p>
+                <pre><code>const fx = new Fuxcel('.my-elements');</code></pre>
+            </section>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
