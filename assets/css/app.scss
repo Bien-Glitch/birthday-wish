@@ -72,7 +72,7 @@
 body {
 	margin: 0;
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 	background: linear-gradient(
 		40deg,
 		rgba(67, 27, 211, 0.8),
@@ -198,7 +198,7 @@ body {
 				.m-auto {
 					color: white;
 					font-family: cursive;
-					font-size: 12px;
+					font-size: 16px;
 					margin: auto;
 					padding: 0.5rem;
 					text-align: justify;
@@ -231,6 +231,7 @@ body {
 				}
 
 				&.writeup {
+					margin-top: 0;
 					height: calc(100dvh - 100px);
 					display: flex;
 					.m-auto {
